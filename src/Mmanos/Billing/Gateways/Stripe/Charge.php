@@ -114,8 +114,8 @@ class Charge implements ChargeInterface
 	 */
 	public function create($amount, array $properties = array())
 	{
-		$card = empty($properties['card']) ? null : $properties['card'];
-		if (!empty($properties['card_token'])) {
+		$card = @empty($properties['card']) ? null : $properties['card'];
+		if (!@empty($properties['card_token'])) {
 			$card = $properties['card_token'];
 		}
 		
