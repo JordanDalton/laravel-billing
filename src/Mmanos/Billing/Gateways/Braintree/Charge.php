@@ -92,7 +92,7 @@ class Charge implements ChargeInterface
 		}
 		
 		$paid = in_array($this->braintree_charge->status, array('submitted_for_settlement', 'settled', 'settling'));
-		$refunded = empty($this->braintree_charge->refundIds) ? false : true;
+		$refunded = @empty($this->braintree_charge->refundIds) ? false : true;
 		$captured = true;
 		if (!$refunded && in_array($this->braintree_charge->status, array('voided'))) {
 			$refunded = true;
