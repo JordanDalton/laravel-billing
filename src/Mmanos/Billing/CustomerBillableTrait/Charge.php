@@ -92,7 +92,7 @@ class Charge
 	 */
 	public function invoice()
 	{
-		if (empty($this->invoice_id)) {
+		if (@empty($this->invoice_id)) {
 			return null;
 		}
 		
