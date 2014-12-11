@@ -129,13 +129,13 @@ class Customer implements CustomerInterface
 	{
 		$this->info();
 		
-		if (!empty($properties['email'])) {
+		if (!@empty($properties['email'])) {
 			$this->stripe_customer->email = $properties['email'];
 		}
-		if (!empty($properties['coupon'])) {
+		if (!@empty($properties['coupon'])) {
 			$this->stripe_customer->coupon = $properties['coupon'];
 		}
-		if (!empty($properties['card_token'])) {
+		if (!@empty($properties['card_token'])) {
 			$this->stripe_customer->card = $properties['card_token'];
 		}
 		
