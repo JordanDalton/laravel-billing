@@ -132,35 +132,35 @@ class Card implements CardInterface
 	{
 		$props = array();
 		
-		if (!@empty($properties['name'])) {
+		if (@($properties['name'])) {
 			$props['cardholderName'] = $properties['name'];
 		}
-		if (!@empty($properties['exp_month'])) {
+		if (@($properties['exp_month'])) {
 			$props['expirationMonth'] = $properties['exp_month'];
 		}
-		if (!@empty($properties['exp_year'])) {
+		if (@($properties['exp_year'])) {
 			$props['expirationYear'] = $properties['exp_year'];
 		}
-		if (!@empty($properties['address_line1'])) {
+		if (@($properties['address_line1'])) {
 			$props['billingAddress']['streetAddress'] = $properties['address_line1'];
 		}
-		if (!@empty($properties['address_line2'])) {
+		if (@($properties['address_line2'])) {
 			$props['billingAddress']['extendedAddress'] = $properties['address_line2'];
 		}
-		if (!@empty($properties['address_city'])) {
+		if (@($properties['address_city'])) {
 			$props['billingAddress']['locality'] = $properties['address_city'];
 		}
-		if (!@empty($properties['address_state'])) {
+		if (@($properties['address_state'])) {
 			$props['billingAddress']['region'] = $properties['address_state'];
 		}
-		if (!@empty($properties['address_zip'])) {
+		if (@($properties['address_zip'])) {
 			$props['billingAddress']['postalCode'] = $properties['address_zip'];
 		}
-		if (!@empty($properties['address_country'])) {
+		if (@($properties['address_country'])) {
 			$props['billingAddress']['countryName'] = $properties['address_country'];
 		}
 		
-		if (!@empty($props['billingAddress'])) {
+		if (@($props['billingAddress'])) {
 			$props['billingAddress']['options'] = array('updateExisting' => true);
 		}
 		

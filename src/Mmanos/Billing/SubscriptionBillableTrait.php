@@ -104,7 +104,7 @@ trait SubscriptionBillableTrait
 	 */
 	public function everSubscribed()
 	{
-		return !@empty($this->billing_subscription);
+		return @($this->billing_subscription);
 	}
 	
 	/**
@@ -389,24 +389,24 @@ trait SubscriptionBillableTrait
 		
 		static::saved(function ($model) {
 			if ($model->isDirty('billing_active')) {
-				if (@empty($model->getOriginal('billing_active')) && !@empty($model->billing_active)) {
+				if (!($model->getOriginal('billing_active')) && @($model->billing_active)) {
 					$model->fireSubscriptionEvent('billingActivated');
 					
 					if ($model->isDirty('billing_subscription_ends_at')) {
-						if (@empty($model->billing_subscription_ends_at) && !@empty($model->getOriginal('billing_subscription_ends_at'))) {
+						if (!($model->billing_subscription_ends_at) && @($model->getOriginal('billing_subscription_ends_at'))) {
 							$model->fireSubscriptionEvent('billingResumed');
 						}
 					}
 				}
-				else if (@empty($model->billing_active) && !@empty($model->getOriginal('billing_active'))) {
+				else if (!($model->billing_active) && @($model->getOriginal('billing_active'))) {
 					$model->fireSubscriptionEvent('billingCanceled');
 				}
 			}
 			if ($model->isDirty('billing_plan')) {
-				if (!@empty($model->getOriginal('billing_plan')) && !@empty($model->billing_plan)) {
+				if (@($model->getOriginal('billing_plan')) && @($model->billing_plan)) {
 					$model->fireSubscriptionEvent('planSwapped');
 				}
-				if (!@empty($model->billing_plan)) {
+				if (@($model->billing_plan)) {
 					$model->fireSubscriptionEvent('planChanged');
 				}
 			}
@@ -421,7 +421,7 @@ trait SubscriptionBillableTrait
 				}
 			}
 			if ($model->isDirty('billing_trial_ends_at')) {
-				if (!@empty($model->billing_trial_ends_at) && !@empty($model->getOriginal('billing_trial_ends_at'))) {
+				if (@($model->billing_trial_ends_at) && @($model->getOriginal('billing_trial_ends_at'))) {
 					if (strtotime($model->billing_trial_ends_at) > strtotime($model->getOriginal('billing_trial_ends_at'))) {
 						$model->fireSubscriptionEvent('trialExtended');
 					}
@@ -435,7 +435,7 @@ trait SubscriptionBillableTrait
 				else if (count($model->billing_subscription_discounts) < count(json_decode($model->getOriginal('billing_subscription_discounts'), true))) {
 					$model->fireSubscriptionEvent('subscriptionDiscountRemoved');
 				}
-				else if (!@empty($model->billing_subscription_discounts)) {
+				else if (@($model->billing_subscription_discounts)) {
 					$model->fireSubscriptionEvent('subscriptionDiscountUpdated');
 				}
 				$model->fireSubscriptionEvent('subscriptionDiscountChanged');

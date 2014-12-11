@@ -127,7 +127,7 @@ class Subscription implements SubscriptionInterface
 	public function create($plan, array $properties = array())
 	{
 		$trial_end = null;
-		if (!@empty($properties['trial_ends_at'])) {
+		if (@($properties['trial_ends_at'])) {
 			$trial_end = strtotime($properties['trial_ends_at']);
 			if ($trial_end <= time()) {
 				$trial_end = 'now';
@@ -163,13 +163,13 @@ class Subscription implements SubscriptionInterface
 	{
 		$this->info();
 		
-		if (!@empty($properties['plan'])) {
+		if (@($properties['plan'])) {
 			$this->stripe_subscription->plan = $properties['plan'];
 		}
-		if (!@empty($properties['quantity'])) {
+		if (@($properties['quantity'])) {
 			$this->stripe_subscription->quantity = $properties['quantity'];
 		}
-		if (!@empty($properties['trial_ends_at'])) {
+		if (@($properties['trial_ends_at'])) {
 			if (strtotime($properties['trial_ends_at']) <= time()) {
 				$this->stripe_subscription->trial_end = 'now';
 			}
@@ -180,14 +180,14 @@ class Subscription implements SubscriptionInterface
 		if (isset($properties['prorate'])) {
 			$this->stripe_subscription->prorate = $properties['prorate'];
 		}
-		if (!@empty($properties['coupon'])) {
+		if (@($properties['coupon'])) {
 			$this->stripe_subscription->coupon = $properties['coupon'];
 		}
 		
-		if (!@empty($properties['card_token'])) {
+		if (@($properties['card_token'])) {
 			$this->stripe_subscription->card = $properties['card_token'];
 		}
-		else if (!@empty($properties['card'])) {
+		else if (@($properties['card'])) {
 			$this->stripe_subscription->card = $properties['card'];
 		}
 		

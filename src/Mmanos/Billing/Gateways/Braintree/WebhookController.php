@@ -78,7 +78,7 @@ class WebhookController extends \Mmanos\Billing\Gateways\WebhookController
 	 */
 	protected function handleSubscriptionChargedSuccessfully(Braintree_WebhookNotification $payload)
 	{
-		if ($payload->subscription->id && !@empty($payload->subscription->transactions)) {
+		if ($payload->subscription->id && @($payload->subscription->transactions)) {
 			if ($subscription = $this->getSubscription($payload->subscription->id)) {
 				if ($customer = $subscription->customer()) {
 					if ($invoice = $customer->invoices()->find($payload->subscription->transactions[0]->id)) {
@@ -100,7 +100,7 @@ class WebhookController extends \Mmanos\Billing\Gateways\WebhookController
 	 */
 	protected function handleSubscriptionChargedUnsuccessfully(Braintree_WebhookNotification $payload)
 	{
-		if ($payload->subscription->id && !@empty($payload->subscription->transactions)) {
+		if ($payload->subscription->id && @($payload->subscription->transactions)) {
 			if ($subscription = $this->getSubscription($payload->subscription->id)) {
 				if ($customer = $subscription->customer()) {
 					if ($invoice = $customer->invoices()->find($payload->subscription->transactions[0]->id)) {

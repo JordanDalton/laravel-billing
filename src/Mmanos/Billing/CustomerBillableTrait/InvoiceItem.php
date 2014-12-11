@@ -55,7 +55,7 @@ class InvoiceItem
 	 */
 	public function subscription()
 	{
-		if (@empty($this->subscription_id)) {
+		if (!($this->subscription_id)) {
 			return null;
 		}
 		

@@ -78,7 +78,7 @@ trait CustomerBillableTrait
 	 */
 	public function readyForBilling()
 	{
-		return !@empty($this->billing_id);
+		return @($this->billing_id);
 	}
 	
 	/**
@@ -146,7 +146,7 @@ trait CustomerBillableTrait
 	 */
 	public function setBillingCardsAttribute($value)
 	{
-		$this->attributes['billing_cards'] = @empty($value) ? null : json_encode($value);
+		$this->attributes['billing_cards'] = !($value) ? null : json_encode($value);
 	}
 	
 	/**
@@ -170,7 +170,7 @@ trait CustomerBillableTrait
 	 */
 	public function setBillingDiscountsAttribute($value)
 	{
-		$this->attributes['billing_discounts'] = @empty($value) ? null : json_encode($value);
+		$this->attributes['billing_discounts'] = !($value) ? null : json_encode($value);
 	}
 	
 	/**
@@ -378,10 +378,10 @@ trait CustomerBillableTrait
 		
 		static::saved(function ($model) {
 			if ($model->isDirty('billing_id')) {
-				if (@empty($model->getOriginal('billing_id')) && !@empty($model->billing_id)) {
+				if (!($model->getOriginal('billing_id')) && @($model->billing_id)) {
 					$model->fireCustomerEvent('customerCreated');
 				}
-				else if (@empty($model->billing_id) && !@empty($model->getOriginal('billing_id'))) {
+				else if (!($model->billing_id) && @($model->getOriginal('billing_id'))) {
 					$model->fireCustomerEvent('customerDeleted');
 				}
 			}
@@ -392,7 +392,7 @@ trait CustomerBillableTrait
 				else if (count($model->billing_cards) < count(json_decode($model->getOriginal('billing_cards'), true))) {
 					$model->fireCustomerEvent('creditcardRemoved');
 				}
-				else if (!@empty($model->billing_cards)) {
+				else if (@($model->billing_cards)) {
 					$model->fireCustomerEvent('creditcardUpdated');
 				}
 				$model->fireCustomerEvent('creditcardChanged');
@@ -404,7 +404,7 @@ trait CustomerBillableTrait
 				else if (count($model->billing_discounts) < count(json_decode($model->getOriginal('billing_discounts'), true))) {
 					$model->fireCustomerEvent('discountRemoved');
 				}
-				else if (!@empty($model->billing_discounts)) {
+				else if (@($model->billing_discounts)) {
 					$model->fireCustomerEvent('discountUpdated');
 				}
 				$model->fireCustomerEvent('discountChanged');

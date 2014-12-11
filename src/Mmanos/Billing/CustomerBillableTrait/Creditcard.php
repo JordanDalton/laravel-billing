@@ -39,7 +39,7 @@ class Creditcard
 		$this->model = $model;
 		$this->card = $card;
 		
-		if (@empty($info)) {
+		if (!($info)) {
 			$info = $card->info();
 		}
 		

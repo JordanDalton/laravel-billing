@@ -170,11 +170,11 @@ class Subscription implements SubscriptionInterface
 			'planId'             => $plan,
 		);
 		
-		if (!@empty($properties['coupon'])) {
+		if (@($properties['coupon'])) {
 			$props['discounts']['add'][] = array('inheritedFromId' => $properties['coupon']);
 		}
 		
-		if (!@empty($properties['trial_ends_at'])) {
+		if (@($properties['trial_ends_at'])) {
 			$now = time();
 			$tends = strtotime($properties['trial_ends_at']);
 			if ($tends < $now) {
@@ -236,7 +236,7 @@ class Subscription implements SubscriptionInterface
 		// So if we want to cancel an existing trial period, delete the subscription and recreate it.
 		if ($info['trial_ends_at']
 			&& strtotime($info['trial_ends_at']) > time()
-			&& !@empty($properties['trial_ends_at'])
+			&& @($properties['trial_ends_at'])
 			&& strtotime($properties['trial_ends_at']) <= time()
 		) {
 			$plan = Arr::get($properties, 'plan', $this->braintree_subscription->planId);
@@ -254,7 +254,7 @@ class Subscription implements SubscriptionInterface
 		
 		$props = array();
 		
-		if (!@empty($properties['plan'])) {
+		if (@($properties['plan'])) {
 			$props['planId'] = $properties['plan'];
 			
 			foreach (Braintree_Plan::all() as $plan) {
@@ -263,11 +263,11 @@ class Subscription implements SubscriptionInterface
 				}
 			}
 		}
-		if (!@empty($properties['coupon'])) {
+		if (@($properties['coupon'])) {
 			$props['discounts']['add']['inheritedFromId'] = $properties['coupon'];
 		}
 		
-		if (!@empty($properties['card'])) {
+		if (@($properties['card'])) {
 			$props['paymentMethodToken'] = $properties['card'];
 		}
 		

@@ -132,31 +132,31 @@ class Card implements CardInterface
 	{
 		$this->info();
 		
-		if (!@empty($properties['name'])) {
+		if (@($properties['name'])) {
 			$this->stripe_card->name = $properties['name'];
 		}
-		if (!@empty($properties['exp_month'])) {
+		if (@($properties['exp_month'])) {
 			$this->stripe_card->exp_month = $properties['exp_month'];
 		}
-		if (!@empty($properties['exp_year'])) {
+		if (@($properties['exp_year'])) {
 			$this->stripe_card->exp_year = $properties['exp_year'];
 		}
-		if (!@empty($properties['address_line1'])) {
+		if (@($properties['address_line1'])) {
 			$this->stripe_card->address_line1 = $properties['address_line1'];
 		}
-		if (!@empty($properties['address_line2'])) {
+		if (@($properties['address_line2'])) {
 			$this->stripe_card->address_line2 = $properties['address_line2'];
 		}
-		if (!@empty($properties['address_city'])) {
+		if (@($properties['address_city'])) {
 			$this->stripe_card->address_city = $properties['address_city'];
 		}
-		if (!@empty($properties['address_state'])) {
+		if (@($properties['address_state'])) {
 			$this->stripe_card->address_state = $properties['address_state'];
 		}
-		if (!@empty($properties['address_zip'])) {
+		if (@($properties['address_zip'])) {
 			$this->stripe_card->address_zip = $properties['address_zip'];
 		}
-		if (!@empty($properties['address_country'])) {
+		if (@($properties['address_country'])) {
 			$this->stripe_card->address_country = $properties['address_country'];
 		}
 		
