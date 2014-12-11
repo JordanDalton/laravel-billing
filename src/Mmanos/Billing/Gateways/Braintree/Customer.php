@@ -115,7 +115,7 @@ class Customer implements CustomerInterface
 	public function update(array $properties = array())
 	{
 		$props = array();
-		if (!empty($properties['email'])) {
+		if (!@empty($properties['email'])) {
 			$props['email'] = $properties['email'];
 		}
 		
