@@ -106,7 +106,7 @@ class Billing
 				}
 				
 				$valid_card = false;
-				if (!empty($subscription->billing_card) && !empty($cards)) {
+				if (!@empty($subscription->billing_card) && !@empty($cards)) {
 					foreach ($cards as $card) {
 						if ($subscription->billing_card == Arr::get($card, 'id')) {
 							$valid_card = true;
