@@ -64,7 +64,7 @@ class Creditcards
 	 */
 	public function first()
 	{
-		if (empty($this->model->billing_cards)) {
+		if (@empty($this->model->billing_cards)) {
 			return null;
 		}
 		
