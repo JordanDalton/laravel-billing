@@ -150,7 +150,7 @@ class Subscriptions
 		if (!$this->model->readyForBilling()) {
 			if ($this->card_token) {
 				$this->model->billing()->withCardToken($this->card_token)->create($properties);
-				if (!empty($this->model->billing_cards)) {
+				if (!@empty($this->model->billing_cards)) {
 					$this->card_token = null;
 				}
 			}
